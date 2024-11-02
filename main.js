@@ -1,7 +1,4 @@
-console.log("Starting tests...")  
- 
-
-// October
+ // October
 //#1 
 // Description:
 //My friend John and I are members of the "Fat to Fit Club (FFC)". John is worried because each month a list with the weights of members is published and each month he is the last on the list which means he is the heaviest.
@@ -64,7 +61,6 @@ console.log("Starting tests...")
 // const isPrime = (number) => {
 //   if (number <= 1) return false; // 0 and 1 are not prime numbers
 //   if (number <= 3) return true; // 2 and 3 are prime numbers
-// console.log(isPrime(1));
 //   // Check for factors from 2 to the square root of the number
 //   for (let i = 2; i * i <= number; i++) {
 //       if (number % i === 0) return false; // If divisible, it's not prime
@@ -88,4 +84,46 @@ console.log("Starting tests...")
 // };
 
 // console.log(getPrimes(1, 27));
+// console.log(isPrime(27)); 
+
+// #2
+
+function mastermind(guess, solution) {
+    let feedback = []; // Ensure feedback is initialized as an array
+
+    // Count matches for exact positions
+    for (let i = 0; i < guess.length; i++) {
+        if (guess[i] === solution[i]) {
+            feedback.push('black'); // 'black' indicates correct color and position
+        } else if (solution.includes(guess[i])) {
+            feedback.push('white'); // 'white' indicates correct color but wrong position
+        }
+    }
+
+    // Ensure the feedback array is correct size by padding with 'none' for incorrect guesses
+    while (feedback.length < guess.length) {
+        feedback.push('none'); // 'none' indicates color is not in solution
+    }
+
+    // Check if the guess exactly matches the solution
+    const isSolved = feedback.every(mark => mark === 'black');
+
+    return {
+        feedback,   // Array with 'black', 'white', or 'none'
+        solved: isSolved
+    };
+}
+
+// Example usage
+const guess = ["Red", "Red", "Yellow", "Blue"];
+const solution = ["Red", "Red", "Red", "Red"];
+const result = mastermind(guess, solution);
+
+console.log("Feedback:", result.feedback); // Logs feedback array
+console.log("Solved:", result.solved); // Logs true if solved, otherwise false
+
+
+
+
+  
   
