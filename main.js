@@ -88,42 +88,160 @@
 
 // #2
 
-function mastermind(guess, solution) {
-    let feedback = []; // Ensure feedback is initialized as an array
+// function mastermind(guess, solution) {
+//     let feedback = []; // Ensure feedback is initialized as an array
 
-    // Count matches for exact positions
-    for (let i = 0; i < guess.length; i++) {
-        if (guess[i] === solution[i]) {
-            feedback.push('black'); // 'black' indicates correct color and position
-        } else if (solution.includes(guess[i])) {
-            feedback.push('white'); // 'white' indicates correct color but wrong position
-        }
-    }
+//     // Count matches for exact positions
+//     for (let i = 0; i < guess.length; i++) {
+//         if (guess[i] === solution[i]) {
+//             feedback.push('black'); // 'black' indicates correct color and position
+//         } else if (solution.includes(guess[i])) {
+//             feedback.push('white'); // 'white' indicates correct color but wrong position
+//         }
+//     }
 
-    // Ensure the feedback array is correct size by padding with 'none' for incorrect guesses
-    while (feedback.length < guess.length) {
-        feedback.push('none'); // 'none' indicates color is not in solution
-    }
+//     // Ensure the feedback array is correct size by padding with 'none' for incorrect guesses
+//     while (feedback.length < guess.length) {
+//         feedback.push('none'); // 'none' indicates color is not in solution
+//     }
 
-    // Check if the guess exactly matches the solution
-    const isSolved = feedback.every(mark => mark === 'black');
+//     // Check if the guess exactly matches the solution
+//     const isSolved = feedback.every(mark => mark === 'black');
 
-    return {
-        feedback,   // Array with 'black', 'white', or 'none'
-        solved: isSolved
-    };
+//     return {
+//         feedback,   // Array with 'black', 'white', or 'none'
+//         solved: isSolved
+//     };
+// }
+
+// // Example usage
+// const guess = ["Red", "Red", "Yellow", "Blue"];
+// const solution = ["Red", "Red", "Red", "Red"];
+// const result = mastermind(guess, solution);
+
+// console.log("Feedback:", result.feedback); // Logs feedback array
+// console.log("Solved:", result.solved); // Logs true if solved, otherwise false
+
+// #3
+
+// Sum of Pairs (Instructions)
+// Given a list of integers and a single sum value, return the first two values (parse from the left please) in order of appearance that add up to form the sum.
+
+// If there are two or more pairs with the required sum, the pair whose second element has the smallest index is the solution.
+
+// sum_pairs([11, 3, 7, 5],         10)
+// #              ^--^      3 + 7 = 10
+// == [3, 7]
+
+// sum_pairs([4, 3, 2, 3, 4],         6)
+// #          ^-----^         4 + 2 = 6, indices: 0, 2 *
+// #             ^-----^      3 + 3 = 6, indices: 1, 3
+// #                ^-----^   2 + 4 = 6, indices: 2, 4
+// #  * the correct answer is the pair whose second value has the smallest index
+// == [4, 2]
+
+// sum_pairs([0, 0, -2, 3], 2)
+// #  there are no pairs of values that can be added to produce 2.
+// == None/nil/undefined/Nothing (Based on the language)
+
+// sum_pairs([10, 5, 2, 3, 7, 5],         10)
+// #              ^-----------^   5 + 5 = 10, indices: 1, 5
+// #                    ^--^      3 + 7 = 10, indices: 3, 4 *
+// #  * the correct answer is the pair whose second value has the smallest index
+// == [3, 7]
+// Negative numbers and duplicate numbers can and will appear.
+
+// NOTE: There will also be lists tested of lengths upwards of 10,000,000 elements. Be sure your code doesn't time out.
+
+// Solution
+
+
+
+
+// function sumPairs(ints, s) {
+//     const seen = new Set();
+    
+//     for (let i = 0; i < ints.length; i++) {
+//         const current = ints[i];
+//         const complement = s - current;
+        
+//         if (seen.has(complement)) {
+//             return [complement, current];
+//         }
+        
+//         seen.add(current);
+//     }
+    
+//     return undefined;
+// }
+
+// // Test cases
+// console.log(sumPairs([11, 3, 7, 5], 10)); // [3, 7]
+// console.log(sumPairs([4, 3, 2, 3, 4], 6)); // [4, 2]
+// console.log(sumPairs([0, 0, -2, 3], 2));   // null
+// console.log(sumPairs([10, 5, 2, 3, 7, 5], 10)); // [3, 7]
+
+
+// #4
+
+// function anagrams(subjects, memories, players) {
+//     const playerScores = Array(memories.length).fill(0);
+    
+//     // Function to check if two words are anagrams
+//     const areAnagrams = (word1, word2) => {
+//         const sorted1 = word1.split('').sort().join('');
+//         const sorted2 = word2.split('').sort().join('');
+//         return sorted1 === sorted2;
+//     };
+
+//     // Iterate over subjects to check for anagrams in players' memories
+//     subjects.forEach(subject => {
+//         let foundAnagram = false;
+        
+//         players.forEach(playerIndex => {
+//             const playerWords = memories[playerIndex];
+//             for (const word of playerWords) {
+//                 if (areAnagrams(subject, word)) {
+//                     playerScores[playerIndex]++;
+//                     foundAnagram = true;
+//                     break;  // Break if we found at least one anagram for this subject
+//                 }
+//             }
+//         });
+        
+//         // If no player found an anagram for this subject, increase the score for none
+//         if (!foundAnagram) {
+//             players.forEach(playerIndex => {
+//                 playerScores[playerIndex]--;
+//             });
+//         }
+//     });
+    
+//     // Determine the final score outcome
+//     const finalScore = playerScores.reduce((total, score) => total + score, 0);
+    
+//     // Return the score based on the game rules
+//     return finalScore;
+// }
+
+// #5
+
+function gcd(a, b) {
+    return b === 0 ? a : gcd(b, a % b);
 }
 
-// Example usage
-const guess = ["Red", "Red", "Yellow", "Blue"];
-const solution = ["Red", "Red", "Red", "Red"];
-const result = mastermind(guess, solution);
+function lcm(a, b) {
+    return (a * b) / gcd(a, b);
+}
 
-console.log("Feedback:", result.feedback); // Logs feedback array
-console.log("Solved:", result.solved); // Logs true if solved, otherwise false
-
-
-
-
-  
-  
+function convertFracs(lst) {
+    // Step 1: Find the LCM of all denominators
+    let commonDenom = lst.reduce((acc, [, denom]) => lcm(acc, denom), 1);
+    
+    // Step 2: Convert each fraction to have the common denominator
+    return lst.map(([numer, denom]) => {
+        let scaledNumer = (numer * commonDenom) / denom;
+        return `(${scaledNumer},${commonDenom})`;
+    }).join(' ');
+}
+console.log(convertFracs(12, 6))
